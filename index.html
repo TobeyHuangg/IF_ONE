@@ -110,7 +110,7 @@
         .hero {
             height: 100vh; /* 佔滿視窗高度 */
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop'); /* 替換為體育場或人群圖片 */
+                        url('照片.png'); /* 替換為體育場或人群圖片 */
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* 視差滾動效果 */
@@ -125,9 +125,19 @@
         .hero h1 {
             font-size: 4rem;
             text-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* 微調間距 */
             font-weight: 900;
             letter-spacing: 5px;
+        }
+
+        /* 副標題口號樣式 */
+        .hero-slogan {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .hero p {
@@ -154,7 +164,7 @@
         }
 
         /* =========================================
-           3. 人員介紹區 (Bootstrap 風格卡片)
+           3. 參賽者介紹區 (Bootstrap 風格卡片)
            ========================================= */
         .members-grid {
             display: grid;
@@ -168,6 +178,9 @@
             overflow: hidden;
             transition: transform 0.3s;
             border: 1px solid #333;
+            display: flex;           /* 讓卡片內部垂直排列 */
+            flex-direction: column; 
+            height: 100%;            /* 等高卡片 */
         }
 
         .card:hover {
@@ -184,42 +197,96 @@
             justify-content: center;
             color: #555;
             font-size: 3rem;
+            flex-shrink: 0;
         }
         
-        /* 如果有真實圖片，可將 img 標籤放入 .card-img-placeholder 中並設為 object-fit: cover */
-
         .card-body {
             padding: 20px;
             text-align: center;
+            flex-grow: 1; /* 讓內容填滿剩餘空間 */
         }
 
         .card-title {
             font-size: 1.5rem;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            display: inline-block;
         }
 
         .card-text {
             color: var(--text-gray);
             font-size: 0.95rem;
+            text-align: left; /* 讓長段落靠左對齊較好閱讀 */
+            line-height: 1.7;
+        }
+
+        /* 團體介紹區塊樣式 */
+        .group-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .group-name {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .song-title {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .group-desc {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ccc;
+            font-size: 1.1rem;
         }
 
         /* =========================================
            4. 應援指南區 (時間軸與大文字)
            ========================================= */
         .guide-container {
-            display: flex;
+            /* 桌面版預設使用 Grid 佈局 */
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* 左側時間軸較窄，右側歌詞較寬 */
             gap: 50px;
-            align-items: flex-start;
+            align-items: start;
         }
 
-        /* 左側：時間軸程序 */
+        /* 左側：時間軸程序 (通用樣式) */
         .timeline {
-            flex: 1;
             position: relative;
             border-left: 4px solid var(--primary-color);
             padding-left: 30px;
             margin-left: 20px;
+        }
+
+        /* 桌面版 Grid 定位：上半部 (Step 1, 2) */
+        .timeline-upper {
+            grid-column: 1;
+            grid-row: 1;
+            /* 讓線條在視覺上連接到下半部，如果需要 */
+            padding-bottom: 0; 
+        }
+
+        /* 桌面版 Grid 定位：下半部 (Step 3, 4) */
+        .timeline-lower {
+            grid-column: 1;
+            grid-row: 2;
         }
 
         .timeline-item {
@@ -249,7 +316,10 @@
 
         /* 右側：應援文字 */
         .lyrics-box {
-            flex: 1.5;
+            /* 桌面版 Grid 定位：跨越兩列 */
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            
             background-color: rgba(255, 87, 34, 0.1);
             padding: 40px;
             border-radius: 15px;
@@ -264,49 +334,101 @@
         }
 
         .lyrics-content {
-            font-size: 2rem; /* 文字要大且清晰 */
-            font-weight: 900;
-            line-height: 1.8;
-            color: #fff;
+            font-size: 1.15rem; 
+            font-weight: normal; 
+            line-height: 1.9;
+            color: #eee;
         }
 
         .highlight {
             color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .solo-note {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+            margin-top: 15px;
+            display: block;
         }
 
         /* =========================================
-           5. 組織架構區 (簡約列表)
+           5. 應援戰略指揮中心 (Grid 卡片風格)
            ========================================= */
-        .org-list {
-            list-style: none;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--bg-card);
-            padding: 30px;
-            border-radius: 10px;
+        .strat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 響應式：自動換行 */
+            gap: 25px;
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .org-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .strat-card {
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 1px solid #333;
+            border-left: 4px solid var(--primary-color); /* 左側加強視覺 */
+            padding: 25px;
+            border-radius: 8px;
+            transition: transform 0.3s, background-color 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .org-item:last-child {
-            border-bottom: none;
+        .strat-card:hover {
+            transform: translateX(5px);
+            background-color: rgba(255, 87, 34, 0.05);
+            border-color: #555;
         }
 
-        .org-role {
-            font-weight: bold;
+        .strat-title {
             color: var(--primary-color);
-            font-size: 1.1rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 8px;
+            display: block;
         }
 
-        .org-name {
-            font-size: 1.1rem;
+        .strat-desc {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: justify; /* 讓文字對齊更整齊 */
+        }
+
+        /* =========================================
+           6. All Hands 全員集結 (名單牆)
+           ========================================= */
+        .all-hands-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.5);
+            border-radius: 15px;
+        }
+
+        .name-tag {
+            background-color: #2a2a2a;
+            color: #ccc;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .name-tag:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(255, 87, 34, 0.3);
+            transform: translateY(-2px);
         }
 
         /* =========================================
@@ -328,6 +450,10 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
+            
+            .hero-slogan {
+                font-size: 1.5rem; /* 手機板縮小一點口號字體 */
+            }
 
             .nav-links {
                 display: none; /* 手機版可改為漢堡選單，此處簡化隱藏 */
@@ -341,8 +467,11 @@
                 justify-content: center;
             }
 
+            /* 修改指南區塊佈局為 Flex Column，實現手機版順序調整 */
             .guide-container {
-                flex-direction: column; /* 上下排列 */
+                display: flex;
+                flex-direction: column; 
+                gap: 30px;
             }
 
             .timeline {
@@ -353,7 +482,13 @@
             }
 
             .lyrics-content {
-                font-size: 1.5rem;
+                font-size: 1rem;
+            }
+            
+            /* 手機版移除 Grid 定位屬性，回復自然流動 */
+            .timeline-upper, .timeline-lower, .lyrics-box {
+                grid-column: auto;
+                grid-row: auto;
             }
         }
     </style>
@@ -366,7 +501,8 @@
             <a href="#" class="logo">🔥 We Are The Champions</a>
             <ul class="nav-links">
                 <li><a href="#hero">首頁</a></li>
-                <li><a href="#members">主力成員</a></li>
+                <!-- 順序調整：參賽者介紹 -->
+                <li><a href="#contestants">參賽者介紹</a></li>
                 <li><a href="#guide">應援指南</a></li>
                 <li><a href="#org">組織名單</a></li>
             </ul>
@@ -376,43 +512,53 @@
     <!-- 2. Hero 區塊 -->
     <header id="hero" class="hero">
         <h1>燃燒你的應援魂</h1>
+        <!-- 新增口號，使用醒目的橘色 -->
+        <div class="hero-slogan">11 樓全力應援 × 一起奪冠！</div>
         <p>不論勝敗，我們的聲音將響徹雲霄！加入我們，成為場上最強大的後盾。</p>
         <a href="#guide" class="btn-cta">開始應援</a>
     </header>
 
-    <!-- 3. 人員介紹區 -->
-    <section id="members" class="container">
-        <h2>主力應援成員</h2>
+    <!-- 3. 參賽者介紹區 (已移至 Hero 區塊下方) -->
+    <section id="contestants" class="container">
+        <h2>參賽者介紹</h2>
+        
+        <!-- 團體資訊 -->
+        <div class="group-intro">
+            <!-- 團名 -->
+            <div class="group-name">團名｜ IF NO.1 ── Infinite Faith & Infinite Future</div>
+            <div class="song-title">🎤 演唱歌曲｜明天也要作伴 We will still be together tomorrow</div>
+            <p class="group-desc">
+                過去一年，工作忙碌又充滿挑戰，但幸好身邊有好夥伴相互扶持、彼此陪伴，才能在 CyberPower 繼續努力、一起向前。
+            </p>
+        </div>
+
+        <!-- 成員卡片 -->
         <div class="members-grid">
-            <!-- 成員 1 -->
+            <!-- 成員 1: Iris -->
             <div class="card">
                 <div class="card-img-placeholder">
                     <!-- 若有照片請替換 -->
-                    <span>🧑‍🎤</span>
+                    <span>👩‍💼</span>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">隊長：雷克斯</h3>
-                    <p class="card-text">擁有無限的體力與最大的嗓門，負責帶動全場氣氛的靈魂人物。</p>
+                    <h3 class="card-title">Iris Lee (李曉玫)</h3>
+                    <div class="card-subtitle">營運管理部</div>
+                    <p class="card-text">
+                        "尾牙不只是回顧成果，歡慶收穫的時刻，更是與夥伴們相聚、感謝彼此一年辛勞的美好時光。希望透過這首歌，陪大家回顧過去一年的努力，也一起迎向嶄新的一年——繼續作伴、一起吵、一起鬧、一起 UPS NO.1！"
+                    </p>
                 </div>
             </div>
-            <!-- 成員 2 -->
+            <!-- 成員 2: Frances -->
             <div class="card">
                 <div class="card-img-placeholder">
-                    <span>🥁</span>
+                    <span>👩‍💻</span>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">鼓手：阿泰</h3>
-                    <p class="card-text">節奏掌控者，每一聲鼓點都精準地打在心跳的節拍上。</p>
-                </div>
-            </div>
-            <!-- 成員 3 -->
-            <div class="card">
-                <div class="card-img-placeholder">
-                    <span>📣</span>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">口號官：小美</h3>
-                    <p class="card-text">創意無限的口號製造機，總能想出讓對手震懾的應援詞。</p>
+                    <h3 class="card-title">Frances Tsai (蔡明芳)</h3>
+                    <div class="card-subtitle">系統開發二部</div>
+                    <p class="card-text">
+                        "年終歲末之際，希望將這份溫暖傳遞給大家，即使專案再難、USER再鬧，不論未來遇到什麼妖魔鬼怪，都能彼此幫忙、互相鼓勵、一起作伴、一起吵、一起鬧、一起 UPS NO.1!"
+                    </p>
                 </div>
             </div>
         </div>
@@ -422,57 +568,216 @@
     <section id="guide" class="container">
         <h2>應援作戰指南</h2>
         <div class="guide-container">
-            <!-- 左側：程序時間軸 -->
-            <div class="timeline">
+            
+            <!-- [區塊 A] 左側時間軸上半部：Step 1 & Step 2 -->
+            <div class="timeline timeline-upper">
+                <!-- 第一階段 (Warm Up) -->
                 <div class="timeline-item">
-                    <span class="time-label">Step 1 - 開場前</span>
-                    <p>全體起立，高舉毛巾，隨著鼓聲緩慢拍手。</p>
+                    <span class="time-label">第一階段：Warm Up｜戰前整備</span>
+                    <ul style="list-style: none; margin-top: 10px; padding: 0;">
+                        <li style="margin-bottom: 8px;">• <strong>核心裝備：</strong> 確保螢光棒電力充足，這將是你的主要武器。</li>
+                        <li style="margin-bottom: 8px;">• <strong>情緒彈藥：</strong> 準備好你的應援衛生紙（確認放在易取出的口袋）。</li>
+                        <li>• <strong>心理建設：</strong> 深呼吸，將頻率調整至與音樂同步，等待燈光暗下的那一刻。</li>
+                    </ul>
                 </div>
+                
+                <!-- 第二階段 (Engage) -->
                 <div class="timeline-item">
-                    <span class="time-label">Step 2 - 進攻時</span>
-                    <p>依照鼓點節奏，「咚咚咚—嘿！」大聲喊出球員名字。</p>
-                </div>
-                <div class="timeline-item">
-                    <span class="time-label">Step 3 - 得分時</span>
-                    <p>播放戰歌，全場搭肩跳動，並進行波浪舞。</p>
+                    <span class="time-label">第二階段：Engage｜戰鬥開始</span>
+                    <ul style="list-style: none; margin-top: 10px; padding: 0;">
+                        <li style="margin-bottom: 8px;">• <strong>前線突擊：</strong> 衝向台前，節奏性地揮舞螢光棒。</li>
+                        <li style="margin-bottom: 8px;">• <strong>音樂共振：</strong> 專注於節奏，讓身體隨旋律律動。</li>
+                        <li>• <strong>關鍵應援：</strong> 在重複歌詞段落（Hook），全場發揮最大音量進行合唱應援，用聲音蓋過音響！</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- 右側：應援歌詞展示 -->
+            <!-- [區塊 B] 應援歌詞區 -->
+            <!-- 手機版：因為 HTML 順序在 Step 2 之後，Step 3 之前，所以會夾在中間 -->
+            <!-- 電腦版：透過 CSS Grid 定位在右側 -->
             <div class="lyrics-box">
-                <div class="lyrics-title">📢 必殺應援曲</div>
+                <div class="lyrics-title">必殺應援曲：明天也要作伴 (應援版)</div>
+                
                 <div class="lyrics-content">
-                    我們是 <span class="highlight">最強的戰士</span><br>
-                    無懼風雨 <span class="highlight">向前衝</span><br>
-                    喔喔喔 — 喔喔喔 —<br>
-                    把勝利 <span class="highlight">帶回家！</span><br>
-                    (重覆三次)
+                    哪天你想要閃電結婚，請先幫我找一個好男人<span class="highlight">（好男人）</span><br>
+                    別一個人去幸福不理人，哪天你不小心就變成女強人<br>
+                    別忘了是我勸你要認真，無論再忙都要陪我聊聊心聲<span class="highlight">（聊聊心聲）</span><br>
+                    我～<span class="highlight">（我）</span>永遠記得今晚<br>
+                    我們回憶往事夢想未來 感動聊不完<br><br>
+                    
+                    明天心也要作伴 也要勇敢 不管是否天涯兩端<br>
+                    只要是情意夠長 緣就不短 常常聯絡 不准懶散<span class="highlight">（不准懶散）</span><br>
+                    明天心也要作伴 也要自然 就像現在真誠簡單<br>
+                    有事你要人商量 我最喜歡 歡迎找麻煩<span class="highlight">（歡迎找麻煩）</span><br><br>
+                    
+                    哪天你已變成女強人，我會記得你勸我要認真<br>
+                    無論再忙都要陪我聊聊心聲<span class="highlight">（聊聊心聲）</span><br>
+                    我～<span class="highlight">（我）</span>永遠記得今晚<br>
+                    我們回憶往事夢想未來 感動聊不完<br><br>
+                    
+                    明天心也要作伴 也要勇敢 不管是否天涯兩端<br>
+                    只要是情意夠長 緣就不短 常常聯絡 不准懶散<span class="highlight">（不准懶散）</span><br>
+                    明天心也要作伴 也要自然 就像現在真誠簡單<br>
+                    有事你要人商量 我最喜歡 歡迎找麻煩<span class="highlight">（歡迎找麻煩）</span><br><br>
+                    
+                    明天心也要作伴 也要勇敢 不管是否天涯兩端<br>
+                    只要是情意夠長 緣就不短 常常聯絡 不准懶散<br>
+                    明天心也要作伴 也要自然 就像現在真誠簡單<br>
+                    有事你要人商量 我最喜歡 歡迎找麻煩<span class="highlight">（歡迎找麻煩）</span><br>
+                    
+                    <span class="solo-note">有事你要人商量 我最喜歡 歡迎找麻煩(無須應援，給主唱們SOLO)</span>
                 </div>
+            </div>
+
+            <!-- [區塊 C] 左側時間軸下半部：Step 3, 4 -->
+            <div class="timeline timeline-lower">
+                <div class="timeline-item">
+                    <span class="time-label">第三階段：Peak｜巔峰對決</span>
+                    <ul style="list-style: none; margin-top: 10px; padding: 0;">
+                        <li style="margin-bottom: 8px;">• <strong>指揮官就位：</strong> 指揮官發出信號，即刻進入必殺狀態。</li>
+                        <li style="margin-bottom: 8px;">• <strong>必殺口號（11樓制霸版）：</strong> 指揮官倒數321~<br>
+                            <div style="margin-top: 5px; padding-left: 15px; font-weight: bold; color: var(--primary-color);">
+                                IF 唱得好，老闆紅包不能少！<br>
+                                不管獎多大，我們都要分一半！<br>
+                                IF IF Number One！<br>
+                                UPS Number One！<br>
+                                CyberPower Number One！！
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 8px;">• <strong>戰術要點：</strong> 讓聲音衝破現場、傳遍全場——這一刻，讓所有人都聽見我們的熱血應援！</li>
+                        <li>• <strong>實戰小訣竅：</strong> 在喊必殺口號時，夥伴們集體揮動手中的應援物，象徵後勤電力已滿格，UPS 供電不中斷。</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="time-label">第四階段：Victory｜勝利謝幕</span>
+                    <p style="color: var(--primary-color); font-style: italic; margin-bottom: 10px;">「封場，完美收官」</p>
+                    <ul style="list-style: none; margin-top: 10px; padding: 0;">
+                        <li style="margin-bottom: 8px;">• <strong>最終一擊：</strong> 必殺口號結束，指揮官手勢，指向台上，所有人面向舞台。</li>
+                        <li style="margin-bottom: 8px;">• <strong>視覺震撼：</strong> 狙擊手出動，弧線象徵電力的傳輸，完美呼應公司核心業務。</li>
+                        <li>• <strong>致謝撤離：</strong> 指揮官喊出”口令”，應援成員就大聲喊出「謝謝大家，11樓Number One」，帶著成就感與笑容完成本次作戰。</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 5. 應援戰略指揮中心 (戰情室卡片風格) -->
+    <section id="org" class="container">
+        <h2>應援戰略指揮中心</h2>
+        <div class="strat-grid">
+            <!-- 卡片 1 -->
+            <div class="strat-card">
+                <span class="strat-title">【營運管理部】與【技術支援部】</span>
+                <p class="strat-desc">負責開拓熱情、排解現場故障，確保我們的愛毫無斷點。</p>
+            </div>
+            <!-- 卡片 2 -->
+            <div class="strat-card">
+                <span class="strat-title">【資訊處】與【採購部】</span>
+                <p class="strat-desc">搭建數據橋樑，搜羅最強應援物資，讓光芒精準投射。</p>
+            </div>
+            <!-- 卡片 3 -->
+            <div class="strat-card">
+                <span class="strat-title">【運籌部】與【供應鏈管理部】</span>
+                <p class="strat-desc">精準調度、完美銜接，確保每一條彩帶、每一聲吶喊都能準時到達戰場。</p>
+            </div>
+            <!-- 卡片 4 -->
+            <div class="strat-card">
+                <span class="strat-title">【稽核部】、【財務處】與【會計處】</span>
+                <p class="strat-desc">嚴謹守護，精確計算每一分熱量，讓我們的熱血花在最動人的刀口上。</p>
             </div>
         </div>
     </section>
 
-    <!-- 5. 組織架構區 -->
-    <section id="org" class="container">
-        <h2>組織架構</h2>
-        <ul class="org-list">
-            <li class="org-item">
-                <span class="org-role">總召集人</span>
-                <span class="org-name">王大明</span>
-            </li>
-            <li class="org-item">
-                <span class="org-role">視覺設計</span>
-                <span class="org-name">陳小華</span>
-            </li>
-            <li class="org-item">
-                <span class="org-role">器材管理</span>
-                <span class="org-name">李四</span>
-            </li>
-            <li class="org-item">
-                <span class="org-role">公關聯絡</span>
-                <span class="org-name">張三</span>
-            </li>
-        </ul>
+    <!-- 6. 新增區塊：All Hands 全員集結 -->
+    <section id="all-hands" class="container">
+        <h2>All Hands｜全員集結</h2>
+        <div class="all-hands-list">
+            <span class="name-tag">Albee Cheng</span>
+            <span class="name-tag">Alex Lin</span>
+            <span class="name-tag">Alex Yang</span>
+            <span class="name-tag">Angela Chung</span>
+            <span class="name-tag">Angela Li</span>
+            <span class="name-tag">Barts Lin</span>
+            <span class="name-tag">Bob Yang</span>
+            <span class="name-tag">Brad Hsu</span>
+            <span class="name-tag">Bruce Chen</span>
+            <span class="name-tag">Cara Liao</span>
+            <span class="name-tag">Carol Lee</span>
+            <span class="name-tag">Casie Liu</span>
+            <span class="name-tag">Celeste Tsai</span>
+            <span class="name-tag">Clair Li</span>
+            <span class="name-tag">David Wang</span>
+            <span class="name-tag">Derek Huang</span>
+            <span class="name-tag">Dolly Chen</span>
+            <span class="name-tag">Echo Tsai</span>
+            <span class="name-tag">Edward Hsu</span>
+            <span class="name-tag">Elly Chuang</span>
+            <span class="name-tag">Emily Mai</span>
+            <span class="name-tag">Emma Huang</span>
+            <span class="name-tag">Erica Tseng</span>
+            <span class="name-tag">Erin Lan</span>
+            <span class="name-tag">Etta Yen</span>
+            <span class="name-tag">Eunice Yu</span>
+            <span class="name-tag">Eva Yu</span>
+            <span class="name-tag">Febee Chiang</span>
+            <span class="name-tag">Frances Tsai</span>
+            <span class="name-tag">Gavin Kuo</span>
+            <span class="name-tag">Gene Tseng</span>
+            <span class="name-tag">Grace Hsu</span>
+            <span class="name-tag">Grace Lee</span>
+            <span class="name-tag">Han Peng</span>
+            <span class="name-tag">Howard Lai</span>
+            <span class="name-tag">Iris Lee</span>
+            <span class="name-tag">Ivy Chen</span>
+            <span class="name-tag">Jack Wang</span>
+            <span class="name-tag">Jacobs Pan</span>
+            <span class="name-tag">Jeremy Wu</span>
+            <span class="name-tag">Jessica Huang</span>
+            <span class="name-tag">Jessica Li</span>
+            <span class="name-tag">Jimmy Huang</span>
+            <span class="name-tag">Joanne Liu</span>
+            <span class="name-tag">Jocelyn Chou</span>
+            <span class="name-tag">Joyce Hsu</span>
+            <span class="name-tag">Julian Hsu</span>
+            <span class="name-tag">Karen Chang</span>
+            <span class="name-tag">Karen Liu</span>
+            <span class="name-tag">Kathy Wu</span>
+            <span class="name-tag">Kelvin Kuo</span>
+            <span class="name-tag">Kevin Chen</span>
+            <span class="name-tag">Kevin Cheng</span>
+            <span class="name-tag">Linda Chang</span>
+            <span class="name-tag">Linda Chi</span>
+            <span class="name-tag">Maggie Lu</span>
+            <span class="name-tag">Margaret Lin</span>
+            <span class="name-tag">Mark Wang</span>
+            <span class="name-tag">Mars Hsu</span>
+            <span class="name-tag">Mason Wu</span>
+            <span class="name-tag">Megan Po</span>
+            <span class="name-tag">Monica Lin</span>
+            <span class="name-tag">Moore Chen</span>
+            <span class="name-tag">Neo Chen</span>
+            <span class="name-tag">Nico Wang</span>
+            <span class="name-tag">Paula Chuang</span>
+            <span class="name-tag">Peggy Lu</span>
+            <span class="name-tag">Ralf Yang</span>
+            <span class="name-tag">Rita Wong</span>
+            <span class="name-tag">Robert Wang</span>
+            <span class="name-tag">Ruby Cheng</span>
+            <span class="name-tag">Sally Huang</span>
+            <span class="name-tag">Sandy Song</span>
+            <span class="name-tag">Sandy Wang</span>
+            <span class="name-tag">Sharon Chiang</span>
+            <span class="name-tag">Sheila Huang</span>
+            <span class="name-tag">Stella Chang</span>
+            <span class="name-tag">Tobey Huang</span>
+            <span class="name-tag">Tracy Chen</span>
+            <span class="name-tag">Vinson Teng</span>
+            <span class="name-tag">Wendy Lin</span>
+            <span class="name-tag">Winny Hung</span>
+            <span class="name-tag">Yao Wang</span>
+        </div>
     </section>
 
     <!-- 頁尾 -->
