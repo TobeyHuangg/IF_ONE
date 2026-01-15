@@ -171,7 +171,12 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自動響應式排列 */
             gap: 30px;
         }
-
+.card-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持比例填滿容器 */
+    display: block;
+}
         .card {
             background-color: var(--bg-card);
             border-radius: 10px;
@@ -539,7 +544,7 @@
             <div class="card">
                 <div class="card-img-placeholder">
                     <!-- 若有照片請替換 -->
-                    <span>👩‍💼</span>
+                    <span><img src="I照片.png" style="width:300px; height:auto; max-width:none; max-height:none;"/></span>
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">Iris Lee (李曉玫)</h3>
@@ -552,7 +557,7 @@
             <!-- 成員 2: Frances -->
             <div class="card">
                 <div class="card-img-placeholder">
-                    <span>👩‍💻</span>
+                    <span><img src="F照片.png" style="width:300px; height:auto; max-width:none; max-height:none;" /></span>
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">Frances Tsai (蔡明芳)</h3>
